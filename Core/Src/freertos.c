@@ -36,7 +36,8 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define SOCKET_NUMBER 	0
-#define UDP_PORT				56800
+#define TCP_PORT		46800
+#define UDP_PORT		56800
 #define UDP_BUF_SIZE   	2048
 
 /* USER CODE END PD */
@@ -48,8 +49,9 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-extern void 		Ethernet_Init(void);
+extern void 	Ethernet_Init(void);
 extern int32_t 	UDP_Loop(uint8_t sn, uint8_t* buf, uint16_t port);
+extern int32_t	TCP_Loop(uint8_t sn, uint8_t* buf, uint16_t port);
 
 uint8_t gDATABUF[UDP_BUF_SIZE];
 
@@ -137,8 +139,9 @@ void StartEthernetHandlerTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    UDP_Loop(SOCKET_NUMBER, gDATABUF, UDP_PORT);
-    osDelay(100);
+//	UDP_Loop(SOCKET_NUMBER, gDATABUF, UDP_PORT);
+    TCP_Loop(SOCKET_NUMBER, gDATABUF, TCP_PORT);
+    osDelay(1);
   }
   /* USER CODE END StartEthernetHandlerTask */
 }
@@ -156,8 +159,7 @@ void StartCanIRQHandlerTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-  	HAL_GPIO_TogglePin(LED_TX_GPIO_Port, LED_TX_Pin);
-  	osDelay(100);
+  	osDelay(1000);
   }
   /* USER CODE END StartCanIRQHandlerTask */
 }

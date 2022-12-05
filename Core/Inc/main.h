@@ -54,7 +54,9 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 void	Ethernet_Init(void);
+
 int32_t UDP_Loop(uint8_t sn, uint8_t* buf, uint16_t port);
+int32_t TCP_Loop(uint8_t sn, uint8_t* buf, uint16_t port);
 
 /* USER CODE END EFP */
 
