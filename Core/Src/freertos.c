@@ -159,7 +159,7 @@ void StartCanIRQHandlerTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-  	osDelay(1000);
+  	osDelay(1);
   }
   /* USER CODE END StartCanIRQHandlerTask */
 }

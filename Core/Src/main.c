@@ -153,13 +153,13 @@ int32_t UDP_Loop(uint8_t sn, uint8_t* buf, uint16_t port)
 	switch (getSn_SR(sn))
 	{
 		case SOCK_UDP:
-			if (CanMessageReceived && !is_ping)
+			if (CanMessageReceived)
 			{
 				connection_is_established = 1;
 				t1 = HAL_GetTick();
 				pRxHeader.DLC = 8;
 
-				sprintf((char*)txJSON, "{507,232,4,%02lu,%lu,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X}",
+				sprintf((char*)txJSON, "{507,232,4,%02X,%lu,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X}",
 				pRxHeader.StdId, pRxHeader.DLC, RsTxData[0], RsTxData[1], RsTxData[2], RsTxData[3], RsTxData[4], RsTxData[5], RsTxData[6], RsTxData[7]);
 
 				sendto(sn, txJSON, (strcspn((char*)txJSON, "}") + 1), destip, 56801);
