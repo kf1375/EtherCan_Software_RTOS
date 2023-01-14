@@ -78,6 +78,7 @@ int32_t TCP_Loop(uint8_t sn, uint8_t* buf, uint16_t port);
 #define LED_4_GPIO_Port GPIOB
 #define RS485_EN_Pin GPIO_PIN_8
 #define RS485_EN_GPIO_Port GPIOA
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

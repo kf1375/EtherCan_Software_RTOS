@@ -63,13 +63,6 @@ const osThreadAttr_t ethernetHandler_attributes = {
   .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
-/* Definitions for canIRQHandler */
-osThreadId_t canIRQHandlerHandle;
-const osThreadAttr_t canIRQHandler_attributes = {
-  .name = "canIRQHandler",
-  .stack_size = 256 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
-};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -77,7 +70,6 @@ const osThreadAttr_t canIRQHandler_attributes = {
 /* USER CODE END FunctionPrototypes */
 
 void StartEthernetHandlerTask(void *argument);
-void StartCanIRQHandlerTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -111,9 +103,6 @@ void MX_FREERTOS_Init(void) {
   /* creation of ethernetHandler */
   ethernetHandlerHandle = osThreadNew(StartEthernetHandlerTask, NULL, &ethernetHandler_attributes);
 
-  /* creation of canIRQHandler */
-  canIRQHandlerHandle = osThreadNew(StartCanIRQHandlerTask, NULL, &canIRQHandler_attributes);
-
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -144,24 +133,6 @@ void StartEthernetHandlerTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END StartEthernetHandlerTask */
-}
-
-/* USER CODE BEGIN Header_StartCanIRQHandlerTask */
-/**
-* @brief Function implementing the canIRQHandler thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartCanIRQHandlerTask */
-void StartCanIRQHandlerTask(void *argument)
-{
-  /* USER CODE BEGIN StartCanIRQHandlerTask */
-  /* Infinite loop */
-  for(;;)
-  {
-  	osDelay(1);
-  }
-  /* USER CODE END StartCanIRQHandlerTask */
 }
 
 /* Private application code --------------------------------------------------*/
