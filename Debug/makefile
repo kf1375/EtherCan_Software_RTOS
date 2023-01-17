@@ -64,8 +64,8 @@ all: main-build
 main-build: GB_EtherCan_Software_RTOS.elf secondary-outputs
 
 # Tool invocations
-GB_EtherCan_Software_RTOS.elf GB_EtherCan_Software_RTOS.map: $(OBJS) $(USER_OBJS) C:\Users\kf1375\Desktop\MyFiles\GB_EtherCan\GB_EtherCan_Software_RTOS\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "GB_EtherCan_Software_RTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\kf1375\Desktop\MyFiles\GB_EtherCan\GB_EtherCan_Software_RTOS\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="GB_EtherCan_Software_RTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+GB_EtherCan_Software_RTOS.elf GB_EtherCan_Software_RTOS.map: $(OBJS) $(USER_OBJS) C:\Users\kf137\Desktop\MyFiles\MyProjects\GB_EtherCan\GB_EtherCan_Software_RTOS\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "GB_EtherCan_Software_RTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\kf137\Desktop\MyFiles\MyProjects\GB_EtherCan\GB_EtherCan_Software_RTOS\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="GB_EtherCan_Software_RTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

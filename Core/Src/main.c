@@ -192,23 +192,26 @@ int32_t UDP_Loop(uint8_t sn, uint8_t* buf, uint16_t port)
 							{
 								sscanf(token + 2*i, "%02x", (unsigned int *) &CanSendArray[i]);
 							}
-							if(pTxHeader.StdId == 0x200 && CanSendArray[0] == 0x12)
-							{
-								for (int i = 1; i < 32; i++) // Ping first 32 devices
-								{
-									is_ping = True;
-									pTxHeader.StdId = 512 + i;
-									HAL_CAN_AddTxMessage(&hcan, &pTxHeader, CanSendArray, &TxMailbox);
-									HAL_Delay(1);
-								}
-								break;
-							}
+							is_ping = False;
+							HAL_CAN_AddTxMessage(&hcan, &pTxHeader, CanSendArray, &TxMailbox);
+							HAL_GPIO_TogglePin(LED_3_GPIO_Port, LED_3_Pin);
+//							if(pTxHeader.StdId == 0x200 && CanSendArray[0] == 0x12)
+//							{
+//								for (int i = 1; i < 32; i++) // Ping first 32 devices
+//								{
+//									is_ping = True;
+//									pTxHeader.StdId = 512 + i;
+//									HAL_CAN_AddTxMessage(&hcan, &pTxHeader, CanSendArray, &TxMailbox);
+//									HAL_Delay(1);
+//								}
+//								break;
+//							}
 						}
 					}
 				}
-				is_ping = False;
-				HAL_CAN_AddTxMessage(&hcan, &pTxHeader, CanSendArray, &TxMailbox);
-				HAL_GPIO_TogglePin(LED_3_GPIO_Port, LED_3_Pin);
+//				is_ping = False;
+//				HAL_CAN_AddTxMessage(&hcan, &pTxHeader, CanSendArray, &TxMailbox);
+//				HAL_GPIO_TogglePin(LED_3_GPIO_Port, LED_3_Pin);
 			}
 			break;
 		case SOCK_CLOSED:
