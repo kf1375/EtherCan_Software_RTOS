@@ -71,7 +71,7 @@ void MX_CAN_Init(void)
   sFilterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0; //set fifo assignment
   // sFilterConfig.FilterIdHigh = 0x245 << 5; //the ID that the filter looks for (switch this for the other microcontroller)
   sFilterConfig.FilterIdHigh = 0;
-	sFilterConfig.FilterIdLow = 0;
+  sFilterConfig.FilterIdLow = 0;
   sFilterConfig.FilterMaskIdHigh = 0;
   sFilterConfig.FilterMaskIdLow = 0;
   sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT; //set filter scale
