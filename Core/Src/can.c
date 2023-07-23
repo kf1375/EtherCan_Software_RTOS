@@ -44,15 +44,15 @@ void MX_CAN_Init(void)
 
   /* USER CODE END CAN_Init 1 */
   hcan.Instance = CAN1;
-  hcan.Init.Prescaler = 36;
+  hcan.Init.Prescaler = 8;
   hcan.Init.Mode = CAN_MODE_NORMAL;
   hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
-  hcan.Init.TimeSeg1 = CAN_BS1_2TQ;
-  hcan.Init.TimeSeg2 = CAN_BS2_1TQ;
+  hcan.Init.TimeSeg1 = CAN_BS1_15TQ;
+  hcan.Init.TimeSeg2 = CAN_BS2_2TQ;
   hcan.Init.TimeTriggeredMode = DISABLE;
   hcan.Init.AutoBusOff = DISABLE;
   hcan.Init.AutoWakeUp = DISABLE;
-  hcan.Init.AutoRetransmission = DISABLE;
+  hcan.Init.AutoRetransmission = ENABLE;
   hcan.Init.ReceiveFifoLocked = DISABLE;
   hcan.Init.TransmitFifoPriority = DISABLE;
   if (HAL_CAN_Init(&hcan) != HAL_OK)
@@ -68,14 +68,14 @@ void MX_CAN_Init(void)
 
   //filter one (stack light blink)
 
-  sFilterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0; //set fifo assignment
-  // sFilterConfig.FilterIdHigh = 0x245 << 5; //the ID that the filter looks for (switch this for the other microcontroller)
-  sFilterConfig.FilterIdHigh = 0;
+  sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; //set fifo assignment
+//   sFilterConfig.FilterIdHigh = 0x245 << 5; //the ID that the filter looks for (switch this for the other microcontroller)
+  sFilterConfig.FilterIdHigh = 0xC8 << 5;
   sFilterConfig.FilterIdLow = 0;
-  sFilterConfig.FilterMaskIdHigh = 0;
+  sFilterConfig.FilterMaskIdHigh = 0xC8;
   sFilterConfig.FilterMaskIdLow = 0;
   sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT; //set filter scale
-  sFilterConfig.FilterActivation = ENABLE;
+  sFilterConfig.FilterActivation = CAN_FILTER_ENABLE;
 
   HAL_CAN_ConfigFilter(&hcan, &sFilterConfig); //configure CAN filter
   HAL_CAN_Start(&hcan); //start CAN
@@ -115,10 +115,6 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     /* CAN1 interrupt Init */
     HAL_NVIC_SetPriority(USB_LP_CAN1_RX0_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(USB_LP_CAN1_RX0_IRQn);
-    HAL_NVIC_SetPriority(CAN1_RX1_IRQn, 1, 0);
-    HAL_NVIC_EnableIRQ(CAN1_RX1_IRQn);
-    HAL_NVIC_SetPriority(CAN1_SCE_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(CAN1_SCE_IRQn);
   /* USER CODE BEGIN CAN1_MspInit 1 */
 
   /* USER CODE END CAN1_MspInit 1 */
@@ -144,8 +140,6 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
 
     /* CAN1 interrupt Deinit */
     HAL_NVIC_DisableIRQ(USB_LP_CAN1_RX0_IRQn);
-    HAL_NVIC_DisableIRQ(CAN1_RX1_IRQn);
-    HAL_NVIC_DisableIRQ(CAN1_SCE_IRQn);
   /* USER CODE BEGIN CAN1_MspDeInit 1 */
 
   /* USER CODE END CAN1_MspDeInit 1 */

@@ -242,16 +242,17 @@ int32_t TCP_Loop(uint8_t sn, uint8_t* buf, uint16_t port)
 				t1 = HAL_GetTick();
 
 				txJSON[0] = 0xAA;
-				txJSON[1] = pRxHeader.StdId;
-				txJSON[2] = pRxHeader.DLC;
+//				txJSON[1] = pRxHeader.StdId;
+//				txJSON[1] = RsTxData[0];
+				txJSON[1] = pRxHeader.DLC;
 
 				for(int i = 0; i < pRxHeader.DLC; i++)
 				{
-					txJSON[3 + i] = RsTxData[i];
+					txJSON[2 + i] = RsTxData[i];
 				}
 //				sprintf((char*)txJSON, "{507,232,4,%02lu,%lu,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X}",
 //				pRxHeader.StdId, pRxHeader.DLC, RsTxData[0], RsTxData[1], RsTxData[2], RsTxData[3], RsTxData[4], RsTxData[5], RsTxData[6], RsTxData[7]);
-				send(sn, txJSON, 3 + pRxHeader.DLC);
+				send(sn, txJSON, 2 + pRxHeader.DLC);
 				CanMessageReceived = 0;
 				break;
 			}

@@ -36,7 +36,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define SOCKET_NUMBER 	0
-#define TCP_PORT		46800
+#define TCP_PORT		56800
 #define UDP_PORT		56800
 #define UDP_BUF_SIZE   	2048
 
