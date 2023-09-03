@@ -195,23 +195,10 @@ int32_t UDP_Loop(uint8_t sn, uint8_t* buf, uint16_t port)
 							is_ping = False;
 							HAL_CAN_AddTxMessage(&hcan, &pTxHeader, CanSendArray, &TxMailbox);
 							HAL_GPIO_TogglePin(LED_3_GPIO_Port, LED_3_Pin);
-//							if(pTxHeader.StdId == 0x200 && CanSendArray[0] == 0x12)
-//							{
-//								for (int i = 1; i < 32; i++) // Ping first 32 devices
-//								{
-//									is_ping = True;
-//									pTxHeader.StdId = 512 + i;
-//									HAL_CAN_AddTxMessage(&hcan, &pTxHeader, CanSendArray, &TxMailbox);
-//									HAL_Delay(1);
-//								}
-//								break;
-//							}
+
 						}
 					}
 				}
-//				is_ping = False;
-//				HAL_CAN_AddTxMessage(&hcan, &pTxHeader, CanSendArray, &TxMailbox);
-//				HAL_GPIO_TogglePin(LED_3_GPIO_Port, LED_3_Pin);
 			}
 			break;
 		case SOCK_CLOSED:
@@ -242,16 +229,13 @@ int32_t TCP_Loop(uint8_t sn, uint8_t* buf, uint16_t port)
 				t1 = HAL_GetTick();
 
 				txJSON[0] = 0xAA;
-//				txJSON[1] = pRxHeader.StdId;
-//				txJSON[1] = RsTxData[0];
 				txJSON[1] = pRxHeader.DLC;
 
 				for(int i = 0; i < pRxHeader.DLC; i++)
 				{
 					txJSON[2 + i] = RsTxData[i];
 				}
-//				sprintf((char*)txJSON, "{507,232,4,%02lu,%lu,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X}",
-//				pRxHeader.StdId, pRxHeader.DLC, RsTxData[0], RsTxData[1], RsTxData[2], RsTxData[3], RsTxData[4], RsTxData[5], RsTxData[6], RsTxData[7]);
+
 				send(sn, txJSON, 2 + pRxHeader.DLC);
 				CanMessageReceived = 0;
 				break;
