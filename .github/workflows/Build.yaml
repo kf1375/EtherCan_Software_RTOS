@@ -1,6 +1,12 @@
-name: Build Workflow
+name: Build and Deployement
 
-on: [push]
+on: 
+    push:
+        tags:
+            - "v*.*.*" 
+
+permissions: 
+    contents: write
 
 jobs:
     build-project:
@@ -16,4 +22,7 @@ jobs:
                   with:
                     project-path: './'
                     project-target: 'stm32f1'
+
+                - name: Copy out .elf file
+                  run: docker container ls
         
