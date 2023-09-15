@@ -1,9 +1,6 @@
 name: Build and Deployement
 
-on: 
-  push:
-    tags:
-      - v*
+on: push
 
 permissions: 
     contents: write
@@ -21,7 +18,7 @@ jobs:
                   uses: xanderhendriks/action-build-stm32cubeide@v10.0
                   with:
                     project-path: './'
-                    project-target: 'stm32f1'
+                    project-target: '.project'
 
                 - name: Copy out .elf file
                   run: docker container ls
