@@ -18,7 +18,7 @@ jobs:
                   uses: xanderhendriks/action-build-stm32cubeide@v10.0
                   with:
                     project-path: './'
-                    project-target: '.project'
+                    project-target: 'GB_EtherCan_Software_RTOS'
 
                 - name: Copy out .elf file
                   run: docker container ls
