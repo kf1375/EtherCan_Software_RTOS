@@ -1,0 +1,18 @@
+Name: Build Workflow
+
+on: [push]
+
+jobs:
+    build-project:
+        runs-on: ubuntu-latest
+        steps:
+                - name: Checkout
+                  uses: actions/checkout@v4
+                  with:
+                    repository: 'kf1375/EtherCan_Software_RTOS'
+                
+                - uses: xanderhendriks/action-build-stm32cubeide@v10.0
+                  with:
+                    project-path: './'
+                    project-target: 'stm32f1'
+        
