@@ -11,7 +11,8 @@ jobs:
                   with:
                     repository: 'kf1375/EtherCan_Software_RTOS'
                 
-                - uses: xanderhendriks/action-build-stm32cubeide@v10.0
+                - name: Build
+                  uses: xanderhendriks/action-build-stm32cubeide@v10.0
                   with:
                     project-path: './'
                     project-target: 'stm32f1'
