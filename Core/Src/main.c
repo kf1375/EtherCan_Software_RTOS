@@ -54,6 +54,8 @@
 #define DATA_BUF_SIZE		2048
 #define PORT_UDPS       	56800
 
+#define MASTER_ID			200
+
 #define rxJSON_size 		200
 #define txJSON_size 		200
 
@@ -229,14 +231,14 @@ int32_t TCP_Loop(uint8_t sn, uint8_t* buf, uint16_t port)
 				t1 = HAL_GetTick();
 
 				txJSON[0] = 0xAA;
-				txJSON[1] = pRxHeader.DLC;
-
+				txJSON[1] = pRxHeader.StdId;
+				txJSON[2] = pRxHeader.DLC;
 				for(int i = 0; i < pRxHeader.DLC; i++)
 				{
-					txJSON[2 + i] = RsTxData[i];
+					txJSON[3 + i] = RsTxData[i];
 				}
 
-				send(sn, txJSON, 2 + pRxHeader.DLC);
+				send(sn, txJSON, 3 + pRxHeader.DLC);
 				CanMessageReceived = 0;
 				break;
 			}

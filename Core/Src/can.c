@@ -60,21 +60,21 @@ void MX_CAN_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN_Init 2 */
-  // Can Filter Config
-  pTxHeader.DLC = 8; //give message with fix size
-  pTxHeader.IDE = CAN_ID_STD; //set identifier to standard
-  pTxHeader.RTR = CAN_RTR_DATA; //set data type to remote transmission request?
-  pTxHeader.StdId = 0x301; //define a standard identifier, used for message identification by filters (switch this for the other microcontroller)
-
-  //filter one (stack light blink)
-
+//  // Can Filter Config
+//  pTxHeader.DLC = 8; //give message with fix size
+//  pTxHeader.IDE = CAN_ID_STD; //set identifier to standard
+//  pTxHeader.RTR = CAN_RTR_DATA; //set data type to remote transmission request?
+//  pTxHeader.StdId = 0x301; //define a standard identifier, used for message identification by filters (switch this for the other microcontroller)
+//
+//  //filter one (stack light blink)
+//
   sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; //set fifo assignment
 //   sFilterConfig.FilterIdHigh = 0x245 << 5; //the ID that the filter looks for (switch this for the other microcontroller)
-  sFilterConfig.FilterIdHigh = 0xC8 << 5;
-  sFilterConfig.FilterIdLow = 0;
-  sFilterConfig.FilterMaskIdHigh = 0xC8;
-  sFilterConfig.FilterMaskIdLow = 0;
-  sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT; //set filter scale
+  sFilterConfig.FilterIdHigh = 0x0000;
+  sFilterConfig.FilterIdLow = 0x0000;
+  sFilterConfig.FilterMaskIdHigh = 0x0000;
+  sFilterConfig.FilterMaskIdLow = 0x0000;
+  sFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT; //set filter scale
   sFilterConfig.FilterActivation = CAN_FILTER_ENABLE;
 
   HAL_CAN_ConfigFilter(&hcan, &sFilterConfig); //configure CAN filter
